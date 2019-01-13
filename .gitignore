@@ -1,4 +1,17 @@
-# Created by .ignore support plugin (hsz.mobi)
-/.idea/
-*/target
-*.iml
+### Eclipse
+.settings/
+bin/
+.classpath
+.project
+
+### IDEA
+.idea/
+
+### gradle
+.gradle/
+build/
+gradlew
+gradlew.bat
+
+### plugins
+rebel.xml

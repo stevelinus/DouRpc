@@ -1,0 +1,11 @@
+
+description = ''
+dependencies {
+    compile group: 'org.springframework.boot', name: 'spring-boot-starter', version:'2.0.5.RELEASE'
+    compile group: 'io.netty', name: 'netty-all', version:'4.1.29.Final'
+    compile group: 'cglib', name: 'cglib', version:'3.2.8'
+  compile project(':protocol')
+  compile project(':common')
+    compile group: 'org.reflections', name: 'reflections', version:'0.9.11'
+    compileOnly group: 'org.projectlombok', name: 'lombok', version:'1.18.2'
+}
