@@ -1,0 +1,7 @@
+rootProject.name = 'DouRpc-testclient'
+
+includeFlat 'DouRpc-client'
+includeFlat 'DouRpc-testcommon'
+
+project(':DouRpc-client').projectDir = "$rootDir/../DouRpc-client" as File
+project(':DouRpc-testcommon').projectDir = "$rootDir/../DouRpc-testcommon" as File

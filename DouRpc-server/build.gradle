@@ -1,9 +1,8 @@
-
-description = ''
 dependencies {
+    compile(project(":DouRpc-protocol"))
+
     compile group: 'io.netty', name: 'netty-all', version:'4.1.29.Final'
     compile group: 'org.springframework.boot', name: 'spring-boot-starter', version:'2.0.5.RELEASE'
-  compile project(':protocol')
     compile group: 'cglib', name: 'cglib', version:'3.2.8'
     compileOnly group: 'org.projectlombok', name: 'lombok', version:'1.18.2'
 }

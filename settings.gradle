@@ -1,16 +1,9 @@
-rootProject.name = 'rpc'
-include ':client'
-include ':service'
-include ':common'
-include ':protocol'
-include ':test-server'
-include ':test-client'
-include ':test-common'
+rootProject.name = 'DouRpc'
 
-project(':client').projectDir = "$rootDir/client" as File
-project(':service').projectDir = "$rootDir/service" as File
-project(':common').projectDir = "$rootDir/common" as File
-project(':protocol').projectDir = "$rootDir/protocol" as File
-project(':test-server').projectDir = "$rootDir/test-server" as File
-project(':test-client').projectDir = "$rootDir/test-client" as File
-project(':test-common').projectDir = "$rootDir/test-common" as File
+include ':DouRpc-client'
+include ':DouRpc-server'
+include ':DouRpc-common'
+include ':DouRpc-protocol'
+include ':DouRpc-testserver'
+include ':DouRpc-client'
+include ':DouRpc-testcommon'

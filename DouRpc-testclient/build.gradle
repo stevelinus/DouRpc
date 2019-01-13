@@ -1,0 +1,4 @@
+dependencies {
+    compile(project(":DouRpc-client"))
+    compile(project(":DouRpc-test-common"))
+}

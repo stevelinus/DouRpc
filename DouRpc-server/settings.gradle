@@ -1,0 +1,5 @@
+rootProject.name = 'DouRpc-server'
+
+includeFlat 'DouRpc-protocol'
+
+project(':DouRpc-protocol').projectDir = "$rootDir/../DouRpc-protocol" as File

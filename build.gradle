@@ -1,26 +1,33 @@
-allprojects  {
-  apply plugin: 'maven'
+allprojects {
+	apply plugin: 'java'
+	apply plugin: 'eclipse'
+	apply plugin: 'java-library'
 
-  group = 'com.xilidou'
-version = '1.0-SNAPSHOT'
-}
+	repositories {
+		maven{ url "http://repo.bt/repository/maven-public/" }
+		maven { url 'http://maven.aliyun.com/nexus/content/groups/public/' }
+		mavenCentral()
+	}
 
-subprojects {
-  apply plugin: 'java'
-  sourceCompatibility = 1.5
-  targetCompatibility = 1.5
-  tasks.withType(JavaCompile) {
-  	options.encoding = 'UTF-8'
-  }
+	eclipse {
+		classpath {
+			downloadJavadoc = true
+			downloadSources = true
+		}
+	}
 
-  
-  repositories {
-    mavenLocal()
-    
-    maven { url "http://repo.maven.apache.org/maven2" }
-  }
+    tasks.withType(JavaCompile) {
+    	options.encoding = 'UTF-8'
+	}
 
-  
-  
-  
+	sourceCompatibility = 1.8
+	targetCompatibility = 1.8
+
+	configurations.all {
+	   //每隔0秒
+	   resolutionStrategy.cacheChangingModulesFor 0, 'seconds'
+	   // 采用动态版本声明的依赖缓存0秒
+	   resolutionStrategy.cacheDynamicVersionsFor 0, 'seconds'
+   }
+
 }
