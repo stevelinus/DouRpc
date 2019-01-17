@@ -1,37 +1,40 @@
 package com.xilidou.proxy;
 
-import com.xilidou.Transporters;
-import com.xilidou.entity.RpcRequest;
-
 import java.lang.reflect.InvocationHandler;
 import java.lang.reflect.Method;
 import java.util.UUID;
 
+import com.xilidou.Transporters;
+import com.xilidou.entity.RpcRequest;
 
 public class RpcInvoker<T> implements InvocationHandler {
 
-    private Class<T> clz;
+	private Class<T> clz;
 
-    public RpcInvoker(Class<T> clz){
-        this.clz = clz;
-    }
+	public Class<T> getClz() {
+		return clz;
+	}
 
-    @Override
-    public Object invoke(Object proxy, Method method, Object[] args) throws Throwable {
-        RpcRequest request = new RpcRequest();
+	public RpcInvoker(Class<T> clz) {
+		this.clz = clz;
+	}
 
-        String requestId = UUID.randomUUID().toString();
+	@Override
+	public Object invoke(Object proxy, Method method, Object[] args) throws Throwable {
+		RpcRequest request = new RpcRequest();
 
-        String className = method.getDeclaringClass().getName();
-        String methodName = method.getName();
-        Class<?>[] parameterTypes = method.getParameterTypes();
+		String requestId = UUID.randomUUID().toString();
 
-        request.setRequestId(requestId);
-        request.setClassName(className);
-        request.setMethodName(methodName);
-        request.setParameterTypes(parameterTypes);
-        request.setParameters(args);
+		String className = method.getDeclaringClass().getName();
+		String methodName = method.getName();
+		Class<?>[] parameterTypes = method.getParameterTypes();
 
-        return Transporters.send(request).getResult();
-    }
+		request.setRequestId(requestId);
+		request.setClassName(className);
+		request.setMethodName(methodName);
+		request.setParameterTypes(parameterTypes);
+		request.setParameters(args);
+		return Transporters.send(request).getResult();
+	}
+
 }
