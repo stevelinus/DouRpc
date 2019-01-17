@@ -30,9 +30,7 @@ public class TcpService {
 	private Channel serverChannel;
 
 	public void start() throws InterruptedException {
-
 		serverChannel = serverBootstrap.bind(tcpPort).sync().channel().closeFuture().channel();
-
 	}
 
 	@PreDestroy

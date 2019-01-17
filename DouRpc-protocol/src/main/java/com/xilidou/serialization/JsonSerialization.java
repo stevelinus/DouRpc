@@ -36,4 +36,5 @@ public class JsonSerialization implements Serialization {
 		}
 		return null;
 	}
+
 }

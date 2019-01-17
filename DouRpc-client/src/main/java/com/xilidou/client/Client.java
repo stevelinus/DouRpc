@@ -1,18 +1,18 @@
 package com.xilidou.client;
 
+import java.net.InetSocketAddress;
+
 import com.xilidou.entity.RpcRequest;
 import com.xilidou.entity.RpcResponse;
 
-import java.net.InetSocketAddress;
-
 public interface Client {
 
-    RpcResponse send(RpcRequest request);
+	RpcResponse send(RpcRequest request);
 
-    void connect(InetSocketAddress inetSocketAddress);
+	void connect(InetSocketAddress inetSocketAddress);
 
-    InetSocketAddress getInetSocketAddress();
+	InetSocketAddress getInetSocketAddress();
 
-    void close();
+	void close();
 
 }

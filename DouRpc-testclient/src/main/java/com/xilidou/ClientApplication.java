@@ -10,7 +10,6 @@ import com.xilidou.api.IHelloService;
 public class ClientApplication {
 
 	public static void main(String[] args) {
-
 		ConfigurableApplicationContext context = SpringApplication.run(ClientApplication.class);
 		IHelloService helloService = context.getBean(IHelloService.class);
 		System.out.println(helloService.sayHi("doudou"));

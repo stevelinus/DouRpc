@@ -36,7 +36,6 @@ public class NettyClient implements Client {
 	public NettyClient(String host, int port) {
 		this.port = port;
 		this.host = host;
-
 	}
 
 	@Override
@@ -51,12 +50,9 @@ public class NettyClient implements Client {
 
 	@Override
 	public void connect(final InetSocketAddress inetSocketAddress) {
-
 		clientHandler = new ClientHandler();
-
 		eventLoopGroup = new NioEventLoopGroup();
 		Bootstrap bootstrap = new Bootstrap();
-
 		bootstrap.group(eventLoopGroup).channel(NioSocketChannel.class).option(ChannelOption.SO_KEEPALIVE, true)
 				.option(ChannelOption.TCP_NODELAY, true).handler(new ChannelInitializer<SocketChannel>() {
 					@Override
@@ -68,7 +64,6 @@ public class NettyClient implements Client {
 						pipeline.addLast(clientHandler);
 					}
 				});
-
 		try {
 			channel = bootstrap.connect(inetSocketAddress).sync().channel();
 		} catch (InterruptedException e) {
