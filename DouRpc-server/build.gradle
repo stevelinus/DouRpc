@@ -5,4 +5,5 @@ dependencies {
     compile group: 'org.springframework.boot', name: 'spring-boot-starter', version:'2.0.5.RELEASE'
     compile group: 'cglib', name: 'cglib', version:'3.2.8'
     compileOnly group: 'org.projectlombok', name: 'lombok', version:'1.18.2'
+    compile group: 'org.springframework.boot', name: 'spring-boot-configuration-processor', version:'2.1.4.RELEAS'
 }

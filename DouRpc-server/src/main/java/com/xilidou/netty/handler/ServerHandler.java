@@ -24,7 +24,7 @@ public class ServerHandler extends SimpleChannelInboundHandler<RpcRequest> imple
 	private ApplicationContext applicationContext;
 
 	@Override
-	protected void channelRead0(ChannelHandlerContext ctx, RpcRequest msg) throws Exception {
+	protected void channelRead0(ChannelHandlerContext ctx, RpcRequest msg) {
 		RpcResponse rpcResponse = new RpcResponse();
 		rpcResponse.setRequestId(msg.getRequestId());
 		try {
@@ -38,21 +38,14 @@ public class ServerHandler extends SimpleChannelInboundHandler<RpcRequest> imple
 	}
 
 	private Object handler(RpcRequest request) throws Throwable {
-
 		Class<?> clz = Class.forName(request.getClassName());
-
 		Object serviceBean = applicationContext.getBean(clz);
-
 		Class<?> serviceClass = serviceBean.getClass();
 		String methodName = request.getMethodName();
-
 		Class<?>[] parameterTypes = request.getParameterTypes();
-
 		Object[] parameters = request.getParameters();
-
 		FastClass fastClass = FastClass.create(serviceClass);
 		FastMethod fastMethod = fastClass.getMethod(methodName, parameterTypes);
-
 		return fastMethod.invoke(serviceBean, parameters);
 	}
 

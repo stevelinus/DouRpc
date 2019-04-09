@@ -6,6 +6,7 @@ import com.xilidou.entity.RpcResponse;
  * @author zhengxin
  */
 public class DefaultFuture {
+
 	private RpcResponse rpcResponse;
 	private volatile boolean isSucceed = false;
 	private final Object object = new Object();

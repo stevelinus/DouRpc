@@ -24,9 +24,9 @@ public class ServerInitializer extends ChannelInitializer<SocketChannel> {
 	private ServerHandler serverHandler;
 
 	@Override
-	protected void initChannel(SocketChannel ch) throws Exception {
+	protected void initChannel(SocketChannel ch) {
 		ChannelPipeline pipeline = ch.pipeline();
-		pipeline.addLast(new LengthFieldBasedFrameDecoder(65535, 0, 4));
+		pipeline.addLast(new LengthFieldBasedFrameDecoder(Integer.MAX_VALUE, 0, 4));
 		pipeline.addLast(new RpcEncoder(RpcResponse.class, new JsonSerialization()));
 		pipeline.addLast(new RpcDecoder(RpcRequest.class, new JsonSerialization()));
 		pipeline.addLast(serverHandler);

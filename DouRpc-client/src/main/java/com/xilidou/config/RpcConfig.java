@@ -1,7 +1,8 @@
 package com.xilidou.config;
 
-import java.util.Set;
-
+import com.xilidou.annotation.RpcInterface;
+import com.xilidou.proxy.ProxyFactory;
+import lombok.extern.slf4j.Slf4j;
 import org.reflections.Reflections;
 import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.InitializingBean;
@@ -10,10 +11,7 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
 import org.springframework.context.annotation.Configuration;
 
-import com.xilidou.annotation.RpcInterface;
-import com.xilidou.proxy.ProxyFactory;
-
-import lombok.extern.slf4j.Slf4j;
+import java.util.Set;
 
 /**
  * @author zhengxin
@@ -30,7 +28,7 @@ public class RpcConfig implements ApplicationContextAware, InitializingBean {
 	}
 
 	@Override
-	public void afterPropertiesSet() throws Exception {
+	public void afterPropertiesSet() {
 		Reflections reflections = new Reflections("com.xilidou");
 		DefaultListableBeanFactory beanFactory = (DefaultListableBeanFactory) applicationContext
 				.getAutowireCapableBeanFactory();

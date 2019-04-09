@@ -1,24 +1,22 @@
 package com.xilidou.config;
 
-import java.net.InetSocketAddress;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Set;
-
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.context.properties.EnableConfigurationProperties;
-import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Configuration;
-
 import com.xilidou.netty.ChannelRepository;
 import com.xilidou.netty.handler.ServerInitializer;
-
 import io.netty.bootstrap.ServerBootstrap;
 import io.netty.channel.ChannelOption;
 import io.netty.channel.nio.NioEventLoopGroup;
 import io.netty.channel.socket.nio.NioServerSocketChannel;
 import io.netty.handler.logging.LogLevel;
 import io.netty.handler.logging.LoggingHandler;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.context.properties.EnableConfigurationProperties;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+
+import java.net.InetSocketAddress;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Set;
 
 /**
  * @author Zhengxin
@@ -43,8 +41,7 @@ public class NettyConfig {
 
 		Map<ChannelOption<?>, Object> tcpChannelOptions = tcpChannelOptions();
 		Set<ChannelOption<?>> keySet = tcpChannelOptions.keySet();
-		for (@SuppressWarnings("rawtypes")
-		ChannelOption option : keySet) {
+		for (ChannelOption option : keySet) {
 			serverBootstrap.option(option, tcpChannelOptions.get(option));
 		}
 
