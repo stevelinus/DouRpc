@@ -14,7 +14,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 import java.net.InetSocketAddress;
-import java.util.HashMap;
+import java.util.Collections;
 import java.util.Map;
 import java.util.Set;
 
@@ -32,19 +32,17 @@ public class NettyConfig {
 	private ServerInitializer serverInitializer;
 
 	@Bean
-	public ServerBootstrap serverBootstrap() throws InterruptedException {
-
+	public ServerBootstrap serverBootstrap() {
 		ServerBootstrap serverBootstrap = new ServerBootstrap();
-
-		serverBootstrap.group(bossGroup(), workerGroup()).channel(NioServerSocketChannel.class)
-				.handler(new LoggingHandler(LogLevel.DEBUG)).childHandler(serverInitializer);
-
+		serverBootstrap.group(bossGroup(), workerGroup())
+				.channel(NioServerSocketChannel.class)
+				.handler(new LoggingHandler(LogLevel.DEBUG))
+				.childHandler(serverInitializer);
 		Map<ChannelOption<?>, Object> tcpChannelOptions = tcpChannelOptions();
 		Set<ChannelOption<?>> keySet = tcpChannelOptions.keySet();
 		for (ChannelOption option : keySet) {
 			serverBootstrap.option(option, tcpChannelOptions.get(option));
 		}
-
 		return serverBootstrap;
 	}
 
@@ -60,9 +58,7 @@ public class NettyConfig {
 
 	@Bean
 	public Map<ChannelOption<?>, Object> tcpChannelOptions() {
-		Map<ChannelOption<?>, Object> options = new HashMap<>();
-		options.put(ChannelOption.SO_BACKLOG, nettyProperties.getBacklog());
-		return options;
+		return Collections.singletonMap(ChannelOption.SO_BACKLOG, nettyProperties.getBacklog());
 	}
 
 	@Bean
