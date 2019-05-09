@@ -15,3 +15,5 @@ gradlew.bat
 
 ### plugins
 rebel.xml
+
+out/
