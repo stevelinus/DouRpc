@@ -1,33 +1,16 @@
 allprojects {
-	apply plugin: 'java'
-	apply plugin: 'eclipse'
-	apply plugin: 'java-library'
+    apply plugin: 'java'
+    apply plugin: 'java-library'
 
-	repositories {
-		maven{ url "http://repo.bt/repository/maven-public/" }
-		maven { url 'http://maven.aliyun.com/nexus/content/groups/public/' }
-		mavenCentral()
-	}
-
-	eclipse {
-		classpath {
-			downloadJavadoc = true
-			downloadSources = true
-		}
-	}
+    repositories {
+        maven { url 'http://maven.aliyun.com/nexus/content/groups/public/' }
+    }
 
     tasks.withType(JavaCompile) {
-    	options.encoding = 'UTF-8'
-	}
+        options.encoding = 'UTF-8'
+    }
 
-	sourceCompatibility = 1.8
-	targetCompatibility = 1.8
-
-	configurations.all {
-	   //每隔0秒
-	   resolutionStrategy.cacheChangingModulesFor 0, 'seconds'
-	   // 采用动态版本声明的依赖缓存0秒
-	   resolutionStrategy.cacheDynamicVersionsFor 0, 'seconds'
-   }
+    sourceCompatibility = 1.8
+    targetCompatibility = 1.8
 
 }
