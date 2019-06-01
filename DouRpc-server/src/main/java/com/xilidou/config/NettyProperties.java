@@ -10,7 +10,7 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
 @ConfigurationProperties(prefix = "netty")
 public class NettyProperties {
 
-    private int tcpPort = 8080;
+    private int tcpPort = 9000;
 
     private int bossCount = 4;
 
