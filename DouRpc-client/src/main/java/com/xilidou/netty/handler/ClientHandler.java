@@ -1,14 +1,15 @@
 package com.xilidou.netty.handler;
 
+import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
+
 import com.xilidou.DefaultFuture;
 import com.xilidou.entity.RpcRequest;
 import com.xilidou.entity.RpcResponse;
+
 import io.netty.channel.ChannelDuplexHandler;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.ChannelPromise;
-
-import java.util.Map;
-import java.util.concurrent.ConcurrentHashMap;
 
 /**
  * @author Zhengxin
@@ -44,5 +45,4 @@ public class ClientHandler extends ChannelDuplexHandler {
 			futureMap.remove(requestId);
 		}
 	}
-
 }

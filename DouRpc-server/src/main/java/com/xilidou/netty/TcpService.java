@@ -1,12 +1,14 @@
 package com.xilidou.netty;
 
+import java.net.InetSocketAddress;
+
+import javax.annotation.PreDestroy;
+
+import org.springframework.stereotype.Component;
+
 import io.netty.bootstrap.ServerBootstrap;
 import io.netty.channel.Channel;
 import lombok.Data;
-import org.springframework.stereotype.Component;
-
-import javax.annotation.PreDestroy;
-import java.net.InetSocketAddress;
 
 /**
  * @author Zhengxin
@@ -16,26 +18,27 @@ import java.net.InetSocketAddress;
 @Component
 public class TcpService {
 
-    private final ServerBootstrap serverBootstrap;
-    private final InetSocketAddress tcpPort;
+	private final ServerBootstrap serverBootstrap;
 
-    private Channel serverChannel;
+	private final InetSocketAddress tcpPort;
 
-    public TcpService(ServerBootstrap serverBootstrap, InetSocketAddress inetSocketAddress) {
-        this.serverBootstrap = serverBootstrap;
-        this.tcpPort = inetSocketAddress;
-    }
+	public TcpService(ServerBootstrap serverBootstrap, InetSocketAddress inetSocketAddress) {
+		this.serverBootstrap = serverBootstrap;
+		this.tcpPort = inetSocketAddress;
+	}
 
-    public void start() throws InterruptedException {
-        serverChannel = serverBootstrap.bind(tcpPort).sync().channel().closeFuture().channel();
-    }
+	private Channel serverChannel;
 
-    @PreDestroy
-    public void stop() {
-        if (serverChannel != null) {
-            serverChannel.close();
-            serverChannel.parent().close();
-        }
-    }
+	public void start() throws InterruptedException {
+		serverChannel = serverBootstrap.bind(tcpPort).sync().channel().closeFuture().channel();
+	}
+
+	@PreDestroy
+	public void stop() {
+		if (serverChannel != null) {
+			serverChannel.close();
+			serverChannel.parent().close();
+		}
+	}
 
 }
