@@ -25,50 +25,54 @@ import java.util.Set;
 @EnableConfigurationProperties(NettyProperties.class)
 public class NettyConfig {
 
-	@Autowired
-	private NettyProperties nettyProperties;
+    private final NettyProperties nettyProperties;
 
-	@Autowired
-	private ServerInitializer serverInitializer;
+    private final ServerInitializer serverInitializer;
 
-	@Bean
-	public ServerBootstrap serverBootstrap() {
-		ServerBootstrap serverBootstrap = new ServerBootstrap();
-		serverBootstrap.group(bossGroup(), workerGroup())
-				.channel(NioServerSocketChannel.class)
-				.handler(new LoggingHandler(LogLevel.DEBUG))
-				.childHandler(serverInitializer);
-		Map<ChannelOption<?>, Object> tcpChannelOptions = tcpChannelOptions();
-		Set<ChannelOption<?>> keySet = tcpChannelOptions.keySet();
-		for (ChannelOption option : keySet) {
-			serverBootstrap.option(option, tcpChannelOptions.get(option));
-		}
-		return serverBootstrap;
-	}
+    @Autowired
+    public NettyConfig(NettyProperties nettyProperties, ServerInitializer serverInitializer) {
+        this.nettyProperties = nettyProperties;
+        this.serverInitializer = serverInitializer;
+    }
 
-	@Bean(destroyMethod = "shutdownGracefully")
-	public NioEventLoopGroup bossGroup() {
-		return new NioEventLoopGroup();
-	}
+    @Bean
+    public ServerBootstrap serverBootstrap() {
+        ServerBootstrap serverBootstrap = new ServerBootstrap();
+        serverBootstrap.group(bossGroup(), workerGroup())
+                .channel(NioServerSocketChannel.class)
+                .handler(new LoggingHandler(LogLevel.DEBUG))
+                .childHandler(serverInitializer);
+        Map<ChannelOption<?>, Object> tcpChannelOptions = tcpChannelOptions();
+        Set<ChannelOption<?>> keySet = tcpChannelOptions.keySet();
+        for (ChannelOption option : keySet) {
+            serverBootstrap.option(option, tcpChannelOptions.get(option));
+        }
+        return serverBootstrap;
+    }
 
-	@Bean(destroyMethod = "shutdownGracefully")
-	public NioEventLoopGroup workerGroup() {
-		return new NioEventLoopGroup();
-	}
+    @Bean(destroyMethod = "shutdownGracefully")
+    public NioEventLoopGroup bossGroup() {
+        return new NioEventLoopGroup();
+    }
 
-	@Bean
-	public Map<ChannelOption<?>, Object> tcpChannelOptions() {
-		return Collections.singletonMap(ChannelOption.SO_BACKLOG, nettyProperties.getBacklog());
-	}
+    @Bean(destroyMethod = "shutdownGracefully")
+    public NioEventLoopGroup workerGroup() {
+        return new NioEventLoopGroup();
+    }
 
-	@Bean
-	public InetSocketAddress tcpSocketAddress() {
-		return new InetSocketAddress(nettyProperties.getTcpPort());
-	}
+    @Bean
+    public Map<ChannelOption<?>, Object> tcpChannelOptions() {
+        return Collections.singletonMap(ChannelOption.SO_BACKLOG, nettyProperties.getBacklog());
+    }
 
-	@Bean
-	public ChannelRepository channelRepository() {
-		return new ChannelRepository();
-	}
+    @Bean
+    public InetSocketAddress tcpSocketAddress() {
+        return new InetSocketAddress(nettyProperties.getTcpPort());
+    }
+
+    @Bean
+    public ChannelRepository channelRepository() {
+        return new ChannelRepository();
+    }
 
 }
